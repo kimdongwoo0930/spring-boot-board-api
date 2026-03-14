@@ -1,9 +1,10 @@
 package com.kdw.boardapi.domain.member.repository;
 
 import java.util.Optional;
-import com.kdw.boardapi.domain.member.entity.Member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.kdw.boardapi.domain.member.entity.Member;
 
 // <엔티티, PK타입>
 public interface MemberRepository extends JpaRepository<Member, Long>{

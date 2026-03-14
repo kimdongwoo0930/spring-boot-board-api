@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kdw.boardapi.domain.comment.dto.CommentRequest;
@@ -42,7 +42,7 @@ public class CommentController {
     @PostMapping("/{postId}/comments")
     public ResponseEntity<ApiResponse<CommentResponse>> createComment(
         @PathVariable Long postId,
-        @RequestParam Long memberId,
+        @AuthenticationPrincipal Long memberId,
         @RequestBody @Valid CommentRequest request){
         return ResponseEntity.status(201).body(ApiResponse.success(commentService.createComment(postId, memberId, request)));
     }

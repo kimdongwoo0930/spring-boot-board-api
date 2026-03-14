@@ -1,6 +1,7 @@
 package com.kdw.boardapi.domain.member.service;
 
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // ========== 쓰기 ==========
 
@@ -36,7 +38,8 @@ public class MemberService {
      */
     @Transactional
     public MemberResponse join(MemberCreateRequest request) {
-        Member member = Member.of(request);
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        Member member = Member.of(request, encodedPassword);
         memberRepository.save(member);
         return MemberResponse.from(member);
     }

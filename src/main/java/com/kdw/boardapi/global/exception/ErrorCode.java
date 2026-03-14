@@ -22,7 +22,10 @@ public enum ErrorCode {
     POST_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
 
     // 댓글
-    COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다.");
+    COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),
+
+    // 로그인 실패
+    INVALID_PASSWORD(401,"비밀번호가 일치하지 않습니다.");
 
     private final int status;
     private final String message;

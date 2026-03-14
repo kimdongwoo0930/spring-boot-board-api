@@ -2,17 +2,18 @@ package com.kdw.boardapi.domain.member.entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.kdw.boardapi.domain.member.dto.MemberCreateRequest;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.kdw.boardapi.domain.member.dto.MemberCreateRequest;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -69,10 +70,10 @@ public class Member {
     }
 
     
-    public static Member of(MemberCreateRequest request) {
+    public static Member of(MemberCreateRequest request, String password) {
     return Member.builder()
             .email(request.getEmail())
-            .password(request.getPassword())
+            .password(password)
             .nickname(request.getNickname())
             .build();
     }
