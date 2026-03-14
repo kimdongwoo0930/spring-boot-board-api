@@ -3,12 +3,14 @@ package com.kdw.boardapi.domain.member.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
 @Getter
 @NoArgsConstructor  // JSON 역직렬화에 필요
+@AllArgsConstructor // 테스트에서 객체 생성 용이
 public class MemberCreateRequest {
 
     @NotBlank(message = "이메일을 입력해주세요")

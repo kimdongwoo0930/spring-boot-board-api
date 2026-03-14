@@ -19,6 +19,8 @@ Spring Boot를 공부하기 위한 게시판 REST API 프로젝트입니다.
 - 페이징 처리 (게시글 목록)
 - 전역 예외처리
 - 공통 응답 포맷
+- JWT 기반 인증/인가 (`feature/security` 브랜치)
+- BCrypt 비밀번호 암호화
 
 ---
 
@@ -26,12 +28,12 @@ Spring Boot를 공부하기 위한 게시판 REST API 프로젝트입니다.
 
 | 분류       | 기술                       |
 | ---------- | -------------------------- |
-| Language   | Java 25                    |
-| Framework  | Spring Boot 4.0.3          |
+| Language   | Java 21                    |
+| Framework  | Spring Boot 3.4.3          |
 | ORM        | Spring Data JPA, Hibernate |
 | Database   | MySQL 8.0                  |
 | Build Tool | Gradle                     |
-| Etc        | Lombok, Swagger            |
+| Etc        | Lombok, Swagger (springdoc-openapi) |
 
 ---
 
@@ -65,7 +67,19 @@ src/main/java/com/kdw/boardapi/
     │   └── GlobalExceptionHandler.java # 전역 예외처리
     ├── response/                   # 공통 응답
     │   └── ApiResponse.java        # 공통 응답 포맷
-    └── config/                     # 설정
+    └── security/                   # Spring Security + JWT (feature/security)
+        ├── config/
+        │   ├── SecurityConfig.java # Security 설정 (FilterChain, URL 권한)
+        │   └── SwaggerConfig.java  # Swagger JWT 인증 설정
+        ├── jwt/
+        │   ├── JwtTokenProvider.java        # JWT 생성/검증/파싱
+        │   └── JwtAuthenticationFilter.java # 요청마다 JWT 검사
+        ├── service/
+        │   └── AuthService.java    # 로그인, 토큰 발급
+        ├── dto/
+        │   ├── LoginRequest.java
+        │   └── TokenResponse.java
+        └── AuthController.java     # POST /api/v1/auth/login
 ```
 
 ---
@@ -270,6 +284,12 @@ GET /api/v1/posts?page=0&size=10&sort=createdAt,desc
 | GET    | /api/v1/posts/{postId}/comments      | 댓글 목록 조회 |
 | PATCH  | /api/v1/posts/{postId}/comments/{id} | 댓글 수정      |
 | DELETE | /api/v1/posts/{postId}/comments/{id} | 댓글 삭제      |
+
+### 인증 API (`feature/security`)
+
+| Method | URL                  | 설명           |
+| ------ | -------------------- | -------------- |
+| POST   | /api/v1/auth/login   | 로그인 (JWT 발급) |
 
 ---
 
