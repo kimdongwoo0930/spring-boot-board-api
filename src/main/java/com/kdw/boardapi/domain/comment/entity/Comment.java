@@ -1,12 +1,6 @@
 package com.kdw.boardapi.domain.comment.entity;
 
-import com.kdw.boardapi.domain.member.entity.Member;
 import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.kdw.boardapi.domain.post.entity.Post;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.kdw.boardapi.domain.comment.dto.CommentRequest;
+import com.kdw.boardapi.domain.member.entity.Member;
+import com.kdw.boardapi.domain.post.entity.Post;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,5 +66,13 @@ public class Comment {
 
     public void delete() {
         this.deleted = true;
+    }
+
+    public static Comment of(CommentRequest request, Member member, Post post){
+        return Comment.builder()
+            .content(request.getContent())
+            .member(member)
+            .post(post)
+            .build();
     }
 }

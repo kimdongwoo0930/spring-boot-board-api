@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.kdw.boardapi.global.response.ApiResponse;
 
@@ -37,7 +38,8 @@ public class GlobalExceptionHandler {
 
     // 나머지 예외 처리
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<?>> handleException(Exception e) {
+    public ResponseEntity<ApiResponse<?>> handleException(Exception e) throws Exception {
+        if (e instanceof NoResourceFoundException) throw e;
         log.error("Exception : {}", e.getMessage());
         return ResponseEntity
                 .status(500)

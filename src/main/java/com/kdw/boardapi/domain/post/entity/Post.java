@@ -1,9 +1,5 @@
 package com.kdw.boardapi.domain.post.entity;
-import com.kdw.boardapi.domain.member.entity.Member;
 import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.kdw.boardapi.domain.member.entity.Member;
+import com.kdw.boardapi.domain.post.dto.PostRequest;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -80,4 +83,12 @@ public class Post {
    public void increaseViewCount(){
     this.viewCount++;
    }
+
+   public static Post of(Member member, PostRequest request) {
+    return Post.builder()
+            .title(request.getTitle())
+            .content(request.getContent())
+            .member(member)
+            .build();
+}
 }

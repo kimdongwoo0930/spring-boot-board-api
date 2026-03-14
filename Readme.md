@@ -270,3 +270,49 @@ GET /api/v1/posts?page=0&size=10&sort=createdAt,desc
 | GET    | /api/v1/posts/{postId}/comments      | 댓글 목록 조회 |
 | PATCH  | /api/v1/posts/{postId}/comments/{id} | 댓글 수정      |
 | DELETE | /api/v1/posts/{postId}/comments/{id} | 댓글 삭제      |
+
+---
+
+## 📌 관례 정리
+
+### 9. HTTP 상태코드 관례
+
+| 코드 | 의미                  | 사용 예시                             |
+| ---- | --------------------- | ------------------------------------- |
+| 200  | OK                    | 조회, 수정 성공                       |
+| 201  | Created               | 회원가입, 게시글/댓글 작성 성공       |
+| 204  | No Content            | 삭제 성공 (응답 바디 없음)            |
+| 400  | Bad Request           | 입력값 검증 실패 (@Valid 오류)        |
+| 404  | Not Found             | 존재하지 않는 리소스 요청             |
+| 409  | Conflict              | 중복 데이터 (이미 존재하는 이메일 등) |
+| 500  | Internal Server Error | 서버 내부 오류                        |
+
+---
+
+### 10. Git 커밋 메세지 관례
+
+```
+타입: 한글 또는 영어로 변경 내용 요약
+
+예시) feat: 회원가입 API 구현
+```
+
+| 타입     | 설명                                           |
+| -------- | ---------------------------------------------- |
+| feat     | 새로운 기능 추가                               |
+| fix      | 버그 수정                                      |
+| docs     | README 등 문서 수정                            |
+| refactor | 기능 변경 없이 코드 구조 개선                  |
+| chore    | 빌드 설정, 패키지 추가 등 기타 작업            |
+| test     | 테스트 코드 추가/수정                          |
+| style    | 코드 포맷팅, 세미콜론 누락 등 (로직 변경 없음) |
+
+---
+
+### 11. REST API 설계 관례
+
+- **URL** : 소문자 + 복수형 명사 사용 (`/members`, `/posts`) — 동사 사용 금지 (`/getUser` ❌)
+- **HTTP 메서드** : 행위는 URL이 아닌 메서드로 표현
+  - `POST` → 생성, `GET` → 조회, `PATCH` → 부분 수정, `PUT` → 전체 수정, `DELETE` → 삭제
+- **버전 관리** : URL에 버전 명시 (`/api/v1/`) — 변경 시 `/api/v2/` 로 분리
+- **계층 관계** : 하위 리소스는 상위 리소스 아래 표현 (`/posts/{postId}/comments`)

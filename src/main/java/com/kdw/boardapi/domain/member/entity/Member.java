@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.kdw.boardapi.domain.member.dto.MemberCreateRequest;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -64,5 +66,14 @@ public class Member {
      */
     public void delete() {
         this.deleted = true;
+    }
+
+    
+    public static Member of(MemberCreateRequest request) {
+    return Member.builder()
+            .email(request.getEmail())
+            .password(request.getPassword())
+            .nickname(request.getNickname())
+            .build();
     }
 }
