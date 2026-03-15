@@ -22,6 +22,36 @@ Spring Boot를 공부하기 위한 게시판 REST API 프로젝트입니다.
 
 ---
 
+## 🌿 브랜치 전략
+
+| 브랜치             | 설명                            |
+| ------------------ | ------------------------------- |
+| `main`             | 안정적인 기본 CRUD 구현         |
+| `feature/security` | Spring Security + JWT 인증 구현 |
+| `feature/test`     | 단위 테스트 코드 작성           |
+
+### 브랜치별 주요 내용
+
+**`main`**
+
+- 회원 / 게시글 / 댓글 CRUD
+- Soft Delete, 페이징, 전역 예외처리, 공통 응답 포맷
+
+**`feature/security`**
+
+- Spring Security + JWT 인증/인가
+- BCrypt 비밀번호 암호화
+- `POST /api/v1/auth/login` 로그인 API
+- 자세한 내용 → [docs/security.md](docs/security.md)
+
+**`feature/test`**
+
+- JUnit5 + Mockito 단위 테스트
+- `MemberServiceTest`, `PostServiceTest`
+- 자세한 내용 → [docs/Test.md](docs/Test.md)
+
+---
+
 ## 🛠 기술 스택
 
 | 분류       | 기술                       |
